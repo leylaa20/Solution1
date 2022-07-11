@@ -46,26 +46,28 @@ public class Program
 {
     static void Main(string[] args)
     {
-
         IButton? button = null;
         Dialog? dialog = null;
 
         while (true)
         {
-            Console.WriteLine("1) Windows");
+            Console.WriteLine("\n1) Windows");
             Console.WriteLine("2) HTML");
             Console.WriteLine("0) Exit");
             Console.Write("\n\tEnter choice ");
 
-            button = Console.ReadLine() switch
+            dialog = Console.ReadLine() switch
             {
-                "1" => new Windows(),
-                "2" => new HTML(),
+                "1" => new WindowsDialog(),
+                "2" => new HTMLDialog(),
                 _ => null
             };
 
-            button = dialog?.CreateButton();
-            dialog?.Render();
+            if (dialog == null)
+                break;
+
+            button = dialog.CreateButton();
+            button?.OnClick();
         }
     }
 }
